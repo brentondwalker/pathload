@@ -126,7 +126,7 @@ int main(l_int32 argc, char *argv[])
         break;
       case 'o':
         file=1;
-        strcpy(filename , optarg, MAX_FILENAME_LEN);
+        strncpy(filename , optarg, MAX_FILENAME_LEN);
         strcpy(mode,"w");
         break;
       case 'H':
@@ -170,7 +170,7 @@ int main(l_int32 argc, char *argv[])
   }
   strncpy(buff, ctime(&(exp_start_time.tv_sec)), 24);
   buff[24] = '\0';
-  bzero(myname , MAX_HOSTNANME_LEN);
+  bzero(myname , MAX_HOSTNAME_LEN);
   if ( gethostname(myname , MAX_HOSTNAME_LEN) == -1 )
   {
     if ( uname(&uts) < 0 )
