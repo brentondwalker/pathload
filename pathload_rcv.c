@@ -47,8 +47,8 @@ int main(l_int32 argc, char *argv[])
   l_int32 ret_val ; 
   l_int32 errflg=0;
   l_int32 file=0;
-  char netlogfile[50],filename[50];
-  char ctr_buff[8], myname[50], buff[26];
+  char netlogfile[MAX_FILENAME_LEN],filename[MAX_FILENAME_LEN];
+  char ctr_buff[8], myname[MAX_HOSTNAME_LEN], buff[26];
   char mode[4];
   l_int32 c ;
   struct itimerval expireat ;
@@ -121,12 +121,12 @@ int main(l_int32 argc, char *argv[])
         break;
       case 'O':
         file=1;
-        strcpy(filename,optarg);
+        strncpy(filename , optarg, MAX_FILENAME_LEN);
         strcpy(mode,"a");
         break;
       case 'o':
         file=1;
-        strcpy(filename,optarg);
+        strcpy(filename , optarg, MAX_FILENAME_LEN);
         strcpy(mode,"w");
         break;
       case 'H':
@@ -135,7 +135,7 @@ int main(l_int32 argc, char *argv[])
         break ;
       case 'N':
         netlog=1; 
-        strcpy(netlogfile,optarg);
+        strncpy(netlogfile , optarg , MAX_FILENAME_LEN);
         break;
       case 'V':
         VVerbose = 1;
@@ -170,13 +170,13 @@ int main(l_int32 argc, char *argv[])
   }
   strncpy(buff, ctime(&(exp_start_time.tv_sec)), 24);
   buff[24] = '\0';
-  bzero(myname,50);
-  if ( gethostname(myname ,50 ) == -1 )
+  bzero(myname , MAX_HOSTNANME_LEN);
+  if ( gethostname(myname , MAX_HOSTNAME_LEN) == -1 )
   {
     if ( uname(&uts) < 0 )
-      strcpy(myname , "UNKNOWN") ;
+      strncpy(myname , "UNKNOWN" , MAX_HOSTNAME_LEN) ;
     else
-      strcpy(myname , uts.nodename) ;
+      strncpy(myname , uts.nodename , MAX_HOSTNAME_LEN) ;
   }
   if (verbose || Verbose)
     printf("\n\nReceiver %s starts measurements at sender %s on %s \n", myname , hostname, buff);

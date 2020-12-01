@@ -96,6 +96,9 @@
 #define MAX_TRAIN           5
 #define TRAIN_LEN           50
 
+#define MAX_HOSTNAME_LEN    1024
+#define MAX_FILENAME_LEN    1024
+
 /* Characteristics of Packet Stream */
 EXTERN l_int32 time_interval ;              /* in us */
 EXTERN l_uint32 transmission_rate ; /* in bps */
